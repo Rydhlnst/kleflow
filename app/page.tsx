@@ -19,13 +19,17 @@ const Home = () => {
     onSuccess: () => {
       // queryClient.invalidateQueries(trpc.getWorkflows.queryOptions())
       toast.success("Job Queued")
-    }
+    },
+
   }))
 
   const testAI = useMutation(trpc.testAi.mutationOptions({
     onSuccess: () => {
       // queryClient.invalidateQueries(trpc.getWorkflows.queryOptions())
       toast.success("Job Queued")
+    },
+    onError: () => {
+      toast.error("Something went wrong")
     }
   }))
 

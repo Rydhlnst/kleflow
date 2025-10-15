@@ -18,7 +18,12 @@ export const execute = inngest.createFunction(
         generateText, {
             model: google("gemini-2.5-flash"),
             system: "You are a helpful assistant that helps create workflows based on user requirements",
-            prompt: "Create a workflow based on the following user requirements: \n\n{{event.body.requirements}}"
+            prompt: "Create a workflow based on the following user requirements: \n\n{{event.body.requirements}}",
+            experimental_telemetry: {
+                isEnabled: true,
+                recordInputs: true,
+                recordOutputs: true
+            }
         }
     );
 
