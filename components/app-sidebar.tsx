@@ -23,6 +23,7 @@ import {
   LogOutIcon,
 } from "lucide-react"
 import { authClient } from "@/lib/auth-client"
+import { useHasActiveSubscription } from "./subscriptions/hooks/use-subscription"
 
 const menuItems = [
   {
@@ -50,6 +51,7 @@ const menuItems = [
 export default function AppSidebar() {
   const router = useRouter()
   const pathname = usePathname()
+  const {hasActiveSubscription, isLoading} = useHasActiveSubscription()
 
   return (
     <Sidebar collapsible="icon" className="">
@@ -107,44 +109,48 @@ export default function AppSidebar() {
 
       {/* Footer */}
       <SidebarFooter>
-        <SidebarMenuItem>
-          <SidebarMenuButton
-            tooltip="Upgrade to Pro"
-            className="gap-x-3 h-10 px-4"
-            onClick={() => {}}
-          >
-            <StarIcon className="size-4" />
-            <span>Upgrade to Pro</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
+        <SidebarMenu>
+          {!hasActiveSubscription && !isLoading && (
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                tooltip="Upgrade to Premium"
+                className="gap-x-3 h-10 px-4"
+                onClick={() => authClient.checkout({slug: "kleflow-premium"})}
+              >
+                <StarIcon className="size-4" />
+                <span>Upgrade to Premium</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          )}
 
-        <SidebarMenuItem>
-          <SidebarMenuButton
-            tooltip="Billing Portal"
-            className="gap-x-3 h-10 px-4"
-            onClick={() => {}}
-          >
-            <CreditCardIcon className="size-4" />
-            <span>Billing Portal</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              tooltip="Billing Portal"
+              className="gap-x-3 h-10 px-4"
+              onClick={() => {}}
+            >
+              <CreditCardIcon className="size-4" />
+              <span>Billing Portal</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
 
-        <SidebarMenuItem>
-          <SidebarMenuButton
-            tooltip="Sign Out"
-            className="gap-x-3 h-10 px-4"
-            onClick={() =>
-              authClient.signOut({
-                fetchOptions: {
-                  onSuccess: () => router.push("/login"),
-                },
-              })
-            }
-          >
-            <LogOutIcon className="size-4" />
-            <span>Sign Out</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              tooltip="Sign Out"
+              className="gap-x-3 h-10 px-4"
+              onClick={() =>
+                authClient.signOut({
+                  fetchOptions: {
+                    onSuccess: () => router.push("/login"),
+                  },
+                })
+              }
+            >
+              <LogOutIcon className="size-4" />
+              <span>Sign Out</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
   )
