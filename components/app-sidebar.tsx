@@ -23,7 +23,7 @@ import {
   LogOutIcon,
 } from "lucide-react"
 import { authClient } from "@/lib/auth-client"
-import { useHasActiveSubscription } from "./subscriptions/hooks/use-subscription"
+import { useHasActiveSubscription } from "../features/subscriptions/hooks/use-subscription"
 
 const menuItems = [
   {

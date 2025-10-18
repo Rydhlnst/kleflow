@@ -6,18 +6,21 @@ import { toast } from 'sonner'
 
 const SubscriptionPage = () => {
     const trpc = useTRPC()
-    const testAI = useMutation(trpc.testAi.mutationOptions({
-        onSuccess: () => {
-            toast.success("Sucess")
-        },
-        onError: ({message}) => {
-            toast.error("Error " + message)
-        }
-    }))
+    // const testAI = useMutation(trpc.testAi.mutationOptions({
+    //     onSuccess: () => {
+    //         toast.success("Sucess")
+    //     },
+    //     onError: ({message}) => {
+    //         toast.error("Error " + message)
+    //     }
+    // }))
   return (
-    <Button onClick={() => testAI.mutate()}>
-      Click to test
-    </Button>
+    // <Button onClick={() => testAI.mutate()}>
+    //   Click to test
+    // </Button>
+    <div>
+      
+    </div>
   )
 }
 
