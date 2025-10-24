@@ -90,6 +90,8 @@ model Workflow {
 
 enum NodeType {
   INITITAL
+  MANUAL_TYPES
+  HTTP_REQUEST
 }
 
 model Node {
